@@ -3,11 +3,11 @@
   <parent>
     <artifactId>pcom-presenter</artifactId>
     <groupId>info.pppc.pcom</groupId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
   <groupId>info.pppc.pcom</groupId>
   <artifactId>pcom-presenter-portrayer-swt</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>PCOM Presenter Portrayer Swt</name>
   <description>A Swt-based PCOM device running components to show converted slides.</description>
 	<build>

@@ -4,11 +4,11 @@
 	<parent>
 		<artifactId>pcom-project</artifactId>
 		<groupId>info.pppc.pcom</groupId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>info.pppc.pcom</groupId>
 	<artifactId>pcom-runtime</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>PCOM Runtime</name>
 	<description>The runtime system of the PCOM component system.</description>

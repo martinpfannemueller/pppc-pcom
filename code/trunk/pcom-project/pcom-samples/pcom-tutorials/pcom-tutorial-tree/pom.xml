@@ -4,11 +4,11 @@
 	<parent>
 		<artifactId>pcom-tutorials</artifactId>
 		<groupId>info.pppc.pcom</groupId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>info.pppc.pcom</groupId>
 	<artifactId>pcom-tutorial-tree</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>PCOM Tutorial Tree</name>
 	<description>A tree-component for the PCOM component system.</description>
 	<build>

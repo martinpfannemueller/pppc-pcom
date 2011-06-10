@@ -4,11 +4,11 @@
 	<parent>
 		<artifactId>pcom-runtime</artifactId>
 		<groupId>info.pppc.pcom</groupId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>info.pppc.pcom</groupId>
 	<artifactId>pcom-core-container</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>PCOM Core Container</name>
 	<description>The core component container of the PCOM component system.</description>
 	<build>

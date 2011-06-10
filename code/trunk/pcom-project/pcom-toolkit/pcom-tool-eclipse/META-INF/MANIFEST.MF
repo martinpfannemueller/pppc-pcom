@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: 3PC PCOM Tools
 Bundle-SymbolicName: info.pppc.pcom.eclipse;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.1.qualifier
 Bundle-Activator: info.pppc.pcom.eclipse.Plugin
 Bundle-Vendor: IPVS Stuttgart
 Bundle-Localization: plugin
