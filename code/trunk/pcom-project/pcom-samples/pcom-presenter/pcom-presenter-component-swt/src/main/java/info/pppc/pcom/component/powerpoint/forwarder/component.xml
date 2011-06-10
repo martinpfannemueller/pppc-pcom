@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component 	xmlns="http://www.3pc.info/pcom"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://www.3pc.info/pcom http://www.3pc.info/pcom/component.xsd">
+	<deployment>
+		<name>Forwarder</name>
+		<factory>info.pppc.pcom.component.powerpoint.forwarder.ForwarderFactory</factory>
+		<instance>info.pppc.pcom.component.powerpoint.forwarder.ForwarderInstance</instance>
+		<skeleton>info.pppc.pcom.component.powerpoint.forwarder.ForwarderSkeleton</skeleton>
+		<instance-provision>
+			<stateful>false</stateful>
+			<interface>info.pppc.pcom.component.powerpoint.IPowerpoint</interface>
+		</instance-provision>
+		<instance-demand>
+			<name>CV</name>
+			<proxy>info.pppc.pcom.component.powerpoint.forwarder.ConverterProxy</proxy>
+			<stateful>false</stateful>
+			<interface>info.pppc.pcom.component.powerpoint.IConverter</interface>
+		</instance-demand>
+		<instance-demand>
+			<name>PT</name>
+			<proxy>info.pppc.pcom.component.powerpoint.forwarder.PortrayerProxy</proxy>
+			<stateful>false</stateful>
+			<interface>info.pppc.pcom.component.portrayer.IPortrayer</interface>
+		</instance-demand>		
+	</deployment>
+</component>

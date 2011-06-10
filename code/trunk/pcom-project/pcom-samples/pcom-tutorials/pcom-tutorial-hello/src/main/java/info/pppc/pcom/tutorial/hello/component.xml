@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component 	xmlns="http://www.3pc.info/pcom"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://www.3pc.info/pcom http://www.3pc.info/pcom/component.xsd">
+	<deployment>
+		<name>Hello</name>
+		<factory>info.pppc.pcom.tutorial.hello.HelloFactory</factory>
+		<instance>info.pppc.pcom.tutorial.hello.HelloInstance</instance>
+		<skeleton>info.pppc.pcom.tutorial.hello.HelloSkeleton</skeleton>
+		<instance-provision>
+			<stateful>true</stateful>
+			<interface>info.pppc.pcom.tutorial.hello.IHello</interface>
+		</instance-provision>
+	</deployment>
+</component>

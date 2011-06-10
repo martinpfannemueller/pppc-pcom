@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component 	xmlns="http://www.3pc.info/pcom"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://www.3pc.info/pcom http://www.3pc.info/pcom/component.xsd">
+	<deployment>
+		<name>Portrayer</name>
+		<factory>info.pppc.pcom.component.portrayer.PortrayerFactory</factory>
+		<instance>info.pppc.pcom.component.portrayer.PortrayerInstance</instance>
+		<skeleton>info.pppc.pcom.component.portrayer.PortrayerSkeleton</skeleton>
+		<instance-provision>
+			<stateful>false</stateful>
+			<interface>info.pppc.pcom.component.portrayer.IPortrayer</interface>
+		</instance-provision>
+		<resource-demand>
+			<type>info.pppc.pcom.capability.swtui.ISwtAccessor</type>
+		</resource-demand>
+		<resource-demand>
+			<type>info.pppc.pcom.capability.ir.IIRAccessor</type>
+		</resource-demand>
+	</deployment>
+</component>

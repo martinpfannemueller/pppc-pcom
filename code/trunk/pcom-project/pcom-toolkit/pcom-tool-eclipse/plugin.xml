@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IFile"
+            nameFilter="component.xml"
+            id="info.pppc.pcom.eclipse.generator">
+         <menu
+               label="%info.pppc.pcom.eclipse.popup.menu.label"
+               path="additions"
+               id="info.pppc.pcom.eclipse.popup.menu">
+            <separator
+                  name="group">
+            </separator>
+         </menu>
+		<action
+               class="info.pppc.pcom.eclipse.popup.action.ClearAction"
+               enablesFor="1"
+               id="info.pppc.pcom.eclipse.popup.action.clear"
+               label="%info.pppc.pcom.eclipse.popup.clear.label"
+               menubarPath="info.pppc.pcom.eclipse.popup.menu/group">
+         </action>
+		 <action
+               class="info.pppc.pcom.eclipse.popup.action.ValidateAction"
+               enablesFor="1"
+               id="info.pppc.pcom.eclipse.popup.action.validate"
+               label="%info.pppc.pcom.eclipse.popup.validate.label"
+               menubarPath="info.pppc.pcom.eclipse.popup.menu/group">
+         </action>
+         <action
+               class="info.pppc.pcom.eclipse.popup.action.GenerateAction"
+               enablesFor="1"
+               id="info.pppc.pcom.eclipse.popup.action.generate"
+               label="%info.pppc.pcom.eclipse.popup.generate.label"
+               menubarPath="info.pppc.pcom.eclipse.popup.menu/group">
+         </action>
+      </objectContribution>
+   </extension>
+   
+   <extension 
+   		 id="marker.error" 
+   		 point="org.eclipse.core.resources.markers"
+   		 name="%info.pppc.pcom.eclipse.marker.error.label">
+     <persistent value="true"/>
+     <super type="org.eclipse.core.resources.problemmarker"/>
+     <super type="org.eclipse.core.resources.textmarker"/>
+   </extension>
+   
+   <extension 
+   		 id="marker.warning" 
+   		 point="org.eclipse.core.resources.markers"
+   		 name="%info.pppc.pcom.eclipse.marker.warning.label">
+     <persistent value="false"/>
+     <super type="org.eclipse.core.resources.problemmarker"/>
+     <super type="org.eclipse.core.resources.textmarker"/>
+   </extension>
+</plugin>
