@@ -1,11 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.jacob</groupId>
-  <artifactId>jacob-project</artifactId>
-  <version>1.15.M4</version>
-  <name>Jacob Java COM Bridge</name>
-  <description>A modified version of the Jacob Java COM Bridge</description>
-  <build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jacob</groupId>
+	<artifactId>jacob-project</artifactId>
+	<version>1.15.M4</version>
+	<name>Jacob Java COM Bridge</name>
+	<description>A modified version of the Jacob Java COM Bridge</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
 		<plugins>
 			<plugin>
 				<!-- Set the compiler plugin version. -->

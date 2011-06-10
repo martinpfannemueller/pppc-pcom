@@ -6,6 +6,9 @@
 	<version>2.1.7</version>
 	<name>GNU RxTx Library</name>
 	<description>A modified GNU rxtx serial and parallel library.</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
