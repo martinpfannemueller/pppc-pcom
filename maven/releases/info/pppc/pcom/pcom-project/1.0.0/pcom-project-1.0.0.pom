@@ -1,0 +1,239 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>info.pppc.pcom</groupId>
+	<artifactId>pcom-project</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<name>PCOM Project</name>
+	<description>The PCOM component system project.</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.cldc.path>${settings.localRepository}/com/github/mcpat/apistubs/cldc-1.1-stub/1.0/cldc-1.1-stub.1.0.jar</java.cldc.path>
+		<java.cdc.path>${settings.localRepository}/com/github/mcpat/apistubs/cdc-1.1.2-stub/1.0/cdc-1.1.2-stub-1.0.jar</java.cdc.path>
+		<java.midp.path>${settings.localRepository}/com/github/mcpat/apistubs/midp-2.0-stub/1.0/midp-2.0-stub-1.0.jar</java.midp.path>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<!-- Set the compiler plugin version. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+			</plugin>
+			<plugin>
+				<!-- Set the assembly plugin version. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2.1</version>
+			</plugin>
+			<plugin>
+				<!-- Generate sources for everything. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
+			</plugin>
+			<plugin>
+				<!-- Generate javadoc with javadoc:aggregate. -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+			</plugin>
+		</plugins>
+		<extensions>
+			<extension>
+				<!-- Add support for WebDAV to enable automatic deployment. -->
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav-jackrabbit</artifactId>
+				<version>1.0-beta-7</version>
+			</extension>
+		</extensions>
+	</build>
+	<dependencyManagement>
+		<dependencies>
+			<!-- Dependencies on 3PC BASE -->
+			<dependency>
+				<groupId>info.pppc.base</groupId>
+				<artifactId>base-core-system</artifactId>
+				<version>1.0.0</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>info.pppc.base</groupId>
+				<artifactId>base-extension-lease</artifactId>
+				<version>1.0.0</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>info.pppc.base</groupId>
+				<artifactId>base-ui-midp</artifactId>
+				<version>1.0.0</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>info.pppc.base</groupId>
+				<artifactId>base-ui-swt</artifactId>
+				<version>1.0.0</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>info.pppc.base</groupId>
+				<artifactId>base-plugin-common</artifactId>
+				<version>1.0.0</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>info.pppc.base</groupId>
+				<artifactId>base-plugin-ip</artifactId>
+				<version>1.0.0</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>info.pppc.base</groupId>
+				<artifactId>base-plugin-bluetooth</artifactId>
+				<version>1.0.0</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<!-- Stub classes for Connected Device Profile. -->
+				<groupId>com.github.mcpat.apistubs</groupId>
+				<artifactId>cdc-1.1.2-stub</artifactId>
+				<version>1.0</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<!-- Stub classes for Connected Limited Device Profile. -->
+				<groupId>com.github.mcpat.apistubs</groupId>
+				<artifactId>cldc-1.1-stub</artifactId>
+				<version>1.0</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<!-- Stub classes for Connected Limited Device Profile. -->
+				<groupId>com.github.mcpat.apistubs</groupId>
+				<artifactId>midp-2.0-stub</artifactId>
+				<version>1.0</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<!-- Stub classes for SWT related projects. -->
+				<groupId>swt</groupId>
+				<artifactId>jface</artifactId>
+				<version>3.0.1</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<!-- Stub classes for SWT related projects. -->
+				<groupId>org.eclipse.swt.win32.win32</groupId>
+				<artifactId>x86</artifactId>
+				<version>3.3.0-v3346</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<!-- Stub classes for SWT related projects. -->
+				<groupId>org.eclipse</groupId>
+				<artifactId>swt</artifactId>
+				<version>3.3.0-v3346</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<!-- Stub classes for SWT related projects. -->
+				<groupId>swt</groupId>
+				<artifactId>runtime</artifactId>
+				<version>3.0.1</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<!-- Stub classes for SWT assembler visualization. -->
+				<groupId>org.eclipse</groupId>
+				<artifactId>draw2d</artifactId>
+				<version>3.2.100-v20070529</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<!-- Com port access for presenter IR components. -->
+				<groupId>gnu.io</groupId>
+				<artifactId>gnu-rxtx</artifactId>
+				<version>2.1.7</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<!-- Java COM bridge for presenter components. -->
+				<groupId>com.jacob</groupId>
+				<artifactId>jacob-project</artifactId>
+				<version>1.15.M4</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<!-- Stub classes for J2ME Bluetoth API (JSR-82). -->
+				<groupId>net.sf.bluecove</groupId>
+				<artifactId>bluecove</artifactId>
+				<version>2.1.0</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<repositories>
+		<repository>
+			<id>releases.pppc-base.googlecode.com</id>
+			<name>3PC BASE Releases</name>
+			<url>http://pppc-base.googlecode.com/svn/maven/releases</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>releases.pppc-pcom.googlecode.com</id>
+			<name>3PC PCOM Releases</name>
+			<url>http://pppc-pcom.googlecode.com/svn/maven/releases</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<modules>
+		<module>pcom-runtime</module>
+		<module>pcom-samples</module>
+		<module>pcom-toolkit</module>
+	</modules>
+</project>

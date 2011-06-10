@@ -1,0 +1,10 @@
+MIDlet-Jar-URL: pcom-presenter-control-midp-1.0.0-me.jar
+MIDlet-Jar-Size: 495786
+MIDlet-Name: PCOM Presenter Control Midp
+MIDlet-Vendor: Marcus Handte
+MIDlet-Version: 1.0.0
+Created-By: Marcus Handte
+MIDlet-Icon: /icon.png
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0
+MIDlet-1: PCOM Presenter, /icon.png, info.pppc.pcom.application.presenter.Presenter
