@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component 	xmlns="http://www.3pc.info/pcom"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://www.3pc.info/pcom http://www.3pc.info/pcom/component.xsd">
+	<deployment>
+		<name>Hello</name>
+		<factory>info.pppc.pcom.tutorial.tree.TreeFactory</factory>
+		<instance>info.pppc.pcom.tutorial.tree.TreeInstance</instance>
+		<skeleton>info.pppc.pcom.tutorial.tree.TreeSkeleton</skeleton>
+		<instance-provision>
+			<stateful>true</stateful>
+			<interface>info.pppc.pcom.tutorial.tree.ITree</interface>
+		</instance-provision>
+		<instance-demand>
+			<name>Tree</name>
+			<proxy>info.pppc.pcom.tutorial.tree.TreeProxy</proxy>
+			<stateful>true</stateful>
+			<interface>info.pppc.pcom.tutorial.tree.ITree</interface>
+		</instance-demand>
+		<resource-demand>
+			<type>info.pppc.pcom.tutorial.tree.ITree</type>
+		</resource-demand>
+	</deployment>
+</component>

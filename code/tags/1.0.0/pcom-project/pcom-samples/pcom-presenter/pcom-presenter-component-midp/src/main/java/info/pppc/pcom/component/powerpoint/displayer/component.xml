@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component 	xmlns="http://www.3pc.info/pcom"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://www.3pc.info/pcom http://www.3pc.info/pcom/component.xsd">
+	<deployment>
+		<name>Displayer</name>
+		<factory>info.pppc.pcom.component.powerpoint.displayer.DisplayerFactory</factory>
+		<instance>info.pppc.pcom.component.powerpoint.displayer.DisplayerInstance</instance>
+		<skeleton>info.pppc.pcom.component.powerpoint.displayer.DisplayerSkeleton</skeleton>
+		<instance-provision>
+			<stateful>false</stateful>
+			<interface>info.pppc.pcom.component.powerpoint.IPowerpoint</interface>
+		</instance-provision>
+		<resource-demand>
+			<type>info.pppc.pcom.capability.lcdui.ILcdAccessor</type>
+		</resource-demand>
+	</deployment>
+</component>

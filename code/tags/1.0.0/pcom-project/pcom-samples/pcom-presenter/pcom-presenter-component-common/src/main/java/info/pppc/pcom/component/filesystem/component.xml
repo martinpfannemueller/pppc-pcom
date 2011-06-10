@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component 	xmlns="http://www.3pc.info/pcom"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://www.3pc.info/pcom http://www.3pc.info/pcom/component.xsd">
+	<deployment>
+		<name>Filesystem</name>
+		<factory>info.pppc.pcom.component.filesystem.DebugFilesystemFactory</factory>
+		<instance>info.pppc.pcom.component.filesystem.DebugFilesystemInstance</instance>
+		<skeleton>info.pppc.pcom.component.filesystem.DebugFilesystemSkeleton</skeleton>
+		<instance-provision>
+			<stateful>false</stateful>
+			<interface>info.pppc.pcom.component.filesystem.IFilesystem</interface>
+		</instance-provision>
+	</deployment>
+</component>

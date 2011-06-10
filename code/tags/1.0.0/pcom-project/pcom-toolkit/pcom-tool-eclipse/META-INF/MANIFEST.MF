@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: 3PC PCOM Tools
+Bundle-SymbolicName: info.pppc.pcom.eclipse;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: info.pppc.pcom.eclipse.Plugin
+Bundle-Vendor: IPVS Stuttgart
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.eclipse.ui.ide,
+ org.eclipse.jdt.ui,
+ org.apache.xerces
+Import-Package: org.apache.xerces.impl, org.apache.xerces.parsers, org.apache.xerces.xni
+Eclipse-LazyStart: true
+Export-Package: info.pppc.pcom.eclipse,
+ info.pppc.pcom.eclipse.generator,
+ info.pppc.pcom.eclipse.generator.model,
+ info.pppc.pcom.eclipse.generator.template,
+ info.pppc.pcom.eclipse.markers,
+ info.pppc.pcom.eclipse.parser,
+ info.pppc.pcom.eclipse.parser.util,
+ info.pppc.pcom.eclipse.parser.validator,
+ info.pppc.pcom.eclipse.parser.xerces,
+ info.pppc.pcom.eclipse.popup.action

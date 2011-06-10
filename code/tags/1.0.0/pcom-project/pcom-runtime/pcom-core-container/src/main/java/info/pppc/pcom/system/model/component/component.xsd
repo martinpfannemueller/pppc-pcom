@@ -1,0 +1,1306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified"
+	targetNamespace="http://www.3pc.info/pcom"
+	xmlns="http://www.3pc.info/pcom"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation xmlns:xhtml="http://www.w3.org/1999/xhtml">
+			<p>
+				Models a PCOM component description that is used by the
+				PCOM eclipse plugins to support the automated generation
+				of component and contract stubs. The contract stub can
+				be used to create components with varying functional and
+				non-functional requirements without programming (or at
+				least with less programming) againts the PCOM contract
+				framework.
+			</p>
+			<p>
+				This XML schema is intended to ease the creation of
+				contracts. A corresponding eclipse plugin can use this
+				schema to support code completion and to provide online
+				documentation. It is also used internally to validate
+				contracts during stub generation.
+			</p>
+			<p>Author: Marcus Handte (October 6th, 2005)</p>
+		</xs:documentation>
+	</xs:annotation>
+	<!-- definition of simple types used within elements -->
+	<xs:simpleType name="javaName">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that restricts inputs to Java class
+					and interface names. Such a name must contain at
+					least one character. The first character must not be
+					a number and two consequtive dots are prohibited.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern
+				value="[a-zA-Z]([a-zA-Z0-9])*([.][a-zA-Z]([a-zA-Z0-9])*)*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="componentName">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used for PCOM component names.
+					These names are human readable descriptions of a
+					certain component. Such names must contain at least
+					one character, they may contain whitespaces and have
+					a maximum length of 32 characters. Multiple white
+					spaces or line feeds are collapsed to a single
+					space. The first character must be a captial between
+					A and Z.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z][a-zA-Z ]*" />
+			<xs:whiteSpace value="collapse" />
+			<xs:maxLength value="32" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="referenceName">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used for PCOM reference names.
+					Reference names are used to generate getter and
+					setters for proxies as well as event processor
+					methods. They must not contain any white spaces and
+					they must start with a capital letter between A and
+					Z.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z][a-zA-Z0-9]*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="dimensionName">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used for PCOM dimension names.
+					Dimension names are used to perform contract
+					matching. Dimension names must not contain white
+					spaces. Appart from that, they can be an arbitrary
+					sequence of characters and digits. The minimum
+					length for a dimension name is 1.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9]+" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="featureName">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used for PCOM feature names.
+					Feature names are usedto perform contract matching.
+					Feature names must not contain white spaces. Appart
+					from that, they can be an arbitrary sequence of
+					characters and digits. The minimum length for a
+					feature name is 1.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9]+" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="featureType">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models an enumeration that contains all possible
+					types for feature contracts. These types are simple
+					strings that denote a subset of primitive Java
+					types. At the present time the following types are
+					supported: Boolean, Integer, Long and String.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="boolean">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							boolean: The type that denotes that the
+							values should be interpreted as boolean
+							values.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="integer">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							integer: The type that denotes that the
+							values should be interpreted as integer
+							values.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="long">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							long: The type that denotes that the values
+							should be interpreted as long values.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="string">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							string: The type that denotes that the
+							values should be interpreted as strings.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="featureComparator">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models an enumeration that contains all possible
+					types for feature comperators that are used within
+					feature demands. These feature comparators are used
+					to control the matching between features of similar
+					dimensions.
+				</p>
+				<p>
+					At the present time the following simple comparators
+					are supported: more (&gt;), moreOrEqual (&gt;=),
+					equal (==), lessOrEqual (&lt;=) and less (&lt;). If
+					one of these comparators is specified, the value tag
+					can be used to control the comparision.
+				</p>
+				<p>
+					Furthermore, the following range comparators are
+					currently supported: inRange (between the specified
+					minimum and maximum values) and outRange (larger
+					than the maximum or smaller than the minimum
+					values). To control the ranges, the minimum and
+					maximum tags can be used.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="more">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							more: The simple comparator that checks
+							whether the values of the provision are
+							greater than the required value.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="moreOrEqual">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							moreOrEqual: The simple comparator that
+							checks whether the values of the provision
+							are greater or equal to the required value.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="equal">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							equal: The simple comparator that checks
+							whether the values of the provision and the
+							demand are equal.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="lessOrEqual">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							lessOrEqual: The simple comparator that
+							checks whether the value of the provision is
+							less or equal to the required value.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="less">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							less: The simple comparator that checks
+							whether the value of the provision lies
+							below the required value.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="inRange">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							inRange: The range comparator that checks
+							whether the value of the provision lies in
+							between the minimum and the maximum value.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="outRange">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							outRange: The range comparator that checks
+							whether the value of the provision lies
+							below the minimum or above the maximum
+							value.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- definition of complex types used to create contracts -->
+	<xs:complexType name="featureProvision">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used to provide a single
+					quality feature within a dimension provision
+					contract. A feature has a name, a type and a value.
+					Note that the value is not checked by the schema.
+					However, it should be parsable using the specified
+					type, otherwise a load time error will occur
+					whenever the generated feature is loaded.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="featureName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The name of the feature. This is used for
+							matching. Only features with equal names are
+							matched.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="featureType">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The type of the feature. The type of the
+							value must adhere to this type. However,
+							this is not checked through xml validation
+							but it is checked after validation.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value" type="xs:string">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The value provided by this feature. The type
+							of the value must correspond to the type
+							specified in the type field.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="featureDemand">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used to demand a single
+					quality feature within a dimension demand contract.
+					A feature has a name, a type and depending on the
+					comparator it either has a value or min and maximum
+					values. Note that the minimum, maximum and the value
+					are not checked by the schema. However, it should be
+					parsable using the specified type, otherwise a load
+					time error will occur whenever the generated feature
+					is loaded.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="featureName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The name of the feature. This is used for
+							matching. Only features with equal names are
+							matched.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="featureType">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The type of the feature. The values
+							specified as minimum, maximum or value must
+							be of the specified type. Note that this is
+							not checked through xml validation, however,
+							it is check after validation.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="comparator" type="featureComparator">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The comparator used for automated contract
+							matching. If the comparator value is simple,
+							the value field must be specified. If the
+							comparator value denotes a range comparator,
+							the minimum and maximum values must be
+							specified.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="value" type="xs:string">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The value used for simple comparators. If
+							the comparator value is simple, this field
+							must be specified. Note that this is not
+							checked by the parser, however, it is
+							checked after validating the document.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="minimum" type="xs:string">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The minimum value used for range
+							comparators. If the comparator denotes a
+							range comparator, this field must be
+							specified. Note that this is not checked by
+							the parser, however, it is checked after
+							validating the document.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="maximum" type="xs:string">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The maximum value used for range
+							comparators.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dimensionProvision">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used to provide a quality
+					dimension with a number of features. A quality
+					dimension has a name that is used for matching and a
+					number of feature provisions with names.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="dimensionName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The name of the quality dimension used for
+							comparisons.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="feature" type="featureProvision">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The features provided by this dimension with
+							their corresponding names and values.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="dimensionDemand">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used to demand a quality
+					dimension with a number of features. A quality
+					dimension has a name that is used for matching and a
+					number of feature demands with names.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="dimensionName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The name of the quality dimension used for
+							comparisons.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="feature" type="featureDemand">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The features required by the dimension with
+							their corresponding names, values, and
+							comparison operators.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="resourceProvision">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used to provide a resource of
+					a certain type with certain quality dimensions.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="type" type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The class name of the provided resource
+							type.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="feature" type="dimensionProvision">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The quality dimensions that describe single
+							features provided by the resource.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="resourceDemand">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used to demand a resource of a
+					certain type with a certain name and certain quality
+					dimensions.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="referenceName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The name under which the resource will be
+							accessible.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The class name that describes the required
+							resource type.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="feature" type="dimensionDemand">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The quality dimensions that describe single
+							features required from the resource.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="interfaceProvision">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used to describe the provision
+					of a certain interface. An interface provision has a
+					certain type and a number of quality dimensions that
+					are provided by this interface.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="type" type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>The class name of the provided interface.</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="dimension" type="dimensionProvision">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The quality dimensions that provide single
+							features provided by this interface.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="interfaceDemand">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used to describe the demand of
+					a certain interface. An interface demand has a
+					certain type and a number of quality dimensions that
+					are demanded by this interface.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="type" type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>The class name of the required interface.</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="dimension" type="dimensionDemand">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The quality dimensions that describe single
+							features required by this interface.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="eventProvision">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used to describe the provision
+					of a certain event. An event provision has a certain
+					type and a number of quality dimensions that are
+					provided by this event.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="type" type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>The class name of the provided event.</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="dimension" type="dimensionProvision">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The quality dimensions that describe single
+							features provided by this event.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="eventDemand">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					Models a type that is used to describe the demand of
+					a certain event. An event demand has a certain type
+					and a number of quality dimensions that are demanded
+					by this event.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="type" type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>The class name of the required event.</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="dimension" type="dimensionDemand">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The quality dimensions that describe single
+							features required for this event.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="instanceProvision">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					The instance provision contract is used to describe
+					the provision of a certain component instance. The
+					provision consists of a number of event and
+					interface provisions with corresponding quality
+					dimensions provided by each event and interface.
+					Finally, the provision declares whether the
+					component can provide support for checkpointing and
+					stateful reselection. The stateful flag determines
+					whether stateful reselection support is available
+					and the checkpoint name is used to determine
+					compatibility between demand and provision.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="0" name="stateful"
+				type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							A flag that signals whether the component
+							can provide support for stateful reselection
+							via histories.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="checkpoint"
+				type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The class name of the checkpoint type that
+							is supported by this component.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="interface" type="interfaceProvision">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The interfaces provided by the component
+							instance under this contract. The interfaces
+							can be enriched with quality dimensions that
+							describe certain features of the provision.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="event"
+				type="eventProvision">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The events provided by the component
+							instance under this contract. The events can
+							be enriched with quality dimensions that
+							describe certain features of the provision.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="instanceDemand">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					The instance demand contract is used to describe the
+					requirements towards a certain component instance.
+					The demand consists of a number of event and
+					interface demands with corresponding quality
+					dimensions demanded by each event and interface.
+					Finally, the demand declares whether the component
+					must provide support for checkpointing and stateful
+					reselection. The stateful flag determines whether
+					stateful reselection support is available and the
+					checkpoint name is used to determine compatibility
+					between demand and provision.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="referenceName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The name of the demanded dependency. This
+							name must correspond to one of the proxies
+							declared in the deployment descriptor. It is
+							used by the container to identify and to
+							create the proxy.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="stateful"
+				type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							A flag that signals whether the component
+							bound to this dependency must enable its
+							support for histories.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="checkpoint"
+				type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The class name of the checkpoint that must
+							be supported by components that bind to this
+							proxy.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="interface" type="interfaceDemand">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The interfaces that must be supported by the
+							component that binds to this dependency. The
+							interfaces can be enriched with required
+							quality dimensions that describe feature
+							requirements for the interface.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="event"
+				type="eventDemand">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The events that must be supported by the
+							component that binds to this dependency. The
+							events can be enriched with required quality
+							dimensions that describe feature
+							requirements for the event.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contractDescriptor">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					The instance contract describes the requirements and
+					the provision of a certain instance at runtime. To
+					do this, it describes the provision of the instance
+					with respect to events and interfaces (including the
+					corresponding quality dimensions) and it describes
+					the demands with respect to other component
+					interfaces and events as well as with respect to
+					resources.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" name="instance-provision"
+				type="instanceProvision">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The instance provision provided by this
+							contract if all requirements can be
+							fulfilled. The provision consist of a
+							interfaces and events that might be
+							parameterized with quality dimensions that
+							describe single features of the provision.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="instance-demand" type="instanceDemand">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The instance demands (component
+							dependencies) required for this contract.
+							The instance demand contains a name as well
+							as the required interfaces and events. The
+							interfaces and events may contain quality
+							dimensions that describe the features of the
+							corresponding events and interfaces.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="resource-demand" type="resourceDemand">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The resource demands that are required for
+							this contract. The resource demand must
+							contain a type, a name and it may contain a
+							quality dimension that describes the
+							required quality or quantity.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- definition of complex types used to generate components -->
+	<xs:complexType name="instanceDescriptor">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					The instance descriptor models the superset of all
+					requirements. It is used to generate a factory and a
+					component interface as well as all required proxies.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="1" name="stateful"
+				type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							A flag that signals whether the skeleton of
+							this component should provide support for
+							automated stateful reselection.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="interface" type="javaName" />
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="event"
+				type="javaName" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="proxyDescriptor">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					The proxy descriptor models the superset of all
+					requirements towards a specific proxy that might be
+					issued at runtime. It is used to generate a proxy
+					that provides the required methods.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="1" name="name"
+				type="referenceName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The name of the proxy that is used to
+							identify this proxy within the program. The
+							name will define the name of the setter that
+							is generated within the component instance.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="1" name="proxy"
+				type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The class name of the proxy that will be
+							generated. Note that this class should not
+							be modified as it will be overwritten during
+							generation.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="1" name="stateful"
+				type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							A flag that signals whether the proxy for
+							this component should provide support for
+							automated stateful reselection.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="interface" type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The class names of interfaces that this
+							proxy should support. This must be the
+							superset of all interfaces that are used at
+							runtime.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0" name="event"
+				type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The class names of events that this proxy
+							should support. This must be the superset of
+							all events that are used at runtime.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="resourceDescriptor">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					The resource descriptor models a requirement for a
+					resource that might be issued at runtime. The
+					deployment descriptor must contain all resource
+					descriptors that are issued later on. This is used
+					to determine whether a component can be hosted on
+					some container.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="1" name="type"
+				type="javaName" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="deploymentDescriptor">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					The deployment descriptor models the superset of all
+					required components and all provided interfaces. It
+					is used to generate a factory, a skeleton an
+					abstract instance and all proxies that might be
+					required.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="1" name="name"
+				type="componentName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The name of the component that will be shown
+							to users. This name should be meaningful to
+							humans. It is not used for anything else.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="1" name="factory"
+				type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The class name of the base factory that will
+							be generated. Note that this class should
+							not be modified as it will be overwritten
+							during generation.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="1" name="instance"
+				type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The class name of the base instance that
+							will be generated. Note that this class
+							should not be modified as it will be
+							overwritten during generation.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="1" name="skeleton"
+				type="javaName">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The class name of the skeleton that will be
+							generated. Note that this class should not
+							be modified as it will be overwritten during
+							generation.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="1"
+				name="instance-provision" type="instanceDescriptor">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The description of the component interfaces
+							and events that will be supported at
+							runtime. Note that this must be the superset
+							of all possible component offers that might
+							be issued at runtime.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="instance-demand" type="proxyDescriptor">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The description of dependencies that might
+							be required at runtime. This must be the
+							superset of all requirements that are issued
+							under a certain name.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="resource-demand" type="resourceDescriptor">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The description of a resource demand that
+							might be issued at runtime.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- definition of complex types used to describe a component -->
+	<xs:complexType name="componentDescriptor">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					The component description is used to generate the
+					component factory and the initializers for
+					contracts. The description consists of one
+					deployment part that is used during generation and a
+					number of contract descriptors that are used to
+					initialize the factory.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="1" name="deployment"
+				type="deploymentDescriptor">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The deployment descriptor is used to
+							generate all classes of component that are
+							required by the container. Thus, the
+							deployment descriptor describes the superset
+							of everything that is required or provided
+							by the component at runtime.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="unbounded" minOccurs="0"
+				name="contract" type="contractDescriptor">
+				<xs:annotation>
+					<xs:documentation
+						xmlns:xhtml="http://www.w3.org/1999/xhtml">
+						<p>
+							The contracts are used to initalize the
+							factory with static parts of contracts.
+							Using the getter function of the factory
+							these contracts can be loaded to reduce the
+							amount of coding required to create a
+							contract. As such they can be seen as
+							templates for contracts issued at runtime
+							due to lookups and negotiation requests.
+						</p>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- definition for document bootstraping -->
+	<xs:element name="component" type="componentDescriptor">
+		<xs:annotation>
+			<xs:documentation
+				xmlns:xhtml="http://www.w3.org/1999/xhtml">
+				<p>
+					The component descriptor describes everything needed
+					to generate a component using the 3PC eclipse
+					plugin. Although it is possible to manually code all
+					proxies, skeletons, instances and factories, this is
+					not recommended as the plugin decouples the
+					components from the specific implementation of the
+					container.
+				</p>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

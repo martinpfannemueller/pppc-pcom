@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component 	xmlns="http://www.3pc.info/pcom"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			xsi:schemaLocation="http://www.3pc.info/pcom http://www.3pc.info/pcom/component.xsd">
+	<deployment>
+		<name>Presenter</name>
+		<factory>info.pppc.pcom.component.presenter.PresenterFactory</factory>
+		<instance>info.pppc.pcom.component.presenter.PresenterInstance</instance>
+		<skeleton>info.pppc.pcom.component.presenter.PresenterSkeleton</skeleton>
+		<instance-provision>
+			<stateful>false</stateful>
+			<interface>info.pppc.pcom.component.presenter.IPresenter</interface>
+		</instance-provision>
+		<instance-demand>
+			<name>FS</name>
+			<proxy>info.pppc.pcom.component.presenter.FilesystemProxy</proxy>
+			<stateful>false</stateful>
+			<interface>info.pppc.pcom.component.filesystem.IFilesystem</interface>
+		</instance-demand>
+		<instance-demand>
+			<name>PPT</name>
+			<proxy>info.pppc.pcom.component.presenter.PowerpointProxy</proxy>
+			<stateful>false</stateful>
+			<interface>info.pppc.pcom.component.powerpoint.IPowerpoint</interface>
+		</instance-demand>
+		<resource-demand>
+			<type>info.pppc.pcom.capability.swtui.ISwtAccessor</type>
+		</resource-demand>
+	</deployment>
+</component>
