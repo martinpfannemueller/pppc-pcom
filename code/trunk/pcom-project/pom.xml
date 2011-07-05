@@ -69,49 +69,49 @@
 			<dependency>
 				<groupId>info.pppc.base</groupId>
 				<artifactId>base-core-system</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.1</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>info.pppc.base</groupId>
 				<artifactId>base-extension-lease</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.1</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>info.pppc.base</groupId>
 				<artifactId>base-ui-midp</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.1</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>info.pppc.base</groupId>
 				<artifactId>base-ui-swt</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.1</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>info.pppc.base</groupId>
 				<artifactId>base-plugin-common</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.1</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>info.pppc.base</groupId>
 				<artifactId>base-plugin-ip</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.1</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>info.pppc.base</groupId>
 				<artifactId>base-plugin-bluetooth</artifactId>
-				<version>1.0.0</version>
+				<version>1.0.1</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
